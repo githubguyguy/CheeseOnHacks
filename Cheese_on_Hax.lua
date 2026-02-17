@@ -3,7 +3,16 @@ local UIS = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 
 local localPlayer = Players.LocalPlayer
+while not localPlayer do
+	localPlayer = Players.LocalPlayer
+	task.wait(0.1)
+end
+
 local camera = workspace.CurrentCamera
+while not camera do
+	camera = workspace.CurrentCamera
+	task.wait(0.1)
+end
 
 local Library = loadstring(game:HttpGetAsync("https://github.com/ActualMasterOogway/Fluent-Renewed/releases/latest/download/Fluent.luau"))()
 local SaveManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/ActualMasterOogway/Fluent-Renewed/master/Addons/SaveManager.luau"))()
@@ -70,7 +79,7 @@ local aimbottoggle = Tabs.Rivals:CreateToggle("AimbotToggle", {
 	Title = "Aimbot",
 	Default = Settings.ScriptToggles.Rivals_Classic,
 	Callback = function(Value)
-		aimbotEnabled = true
+		aimbotEnabled = Value
 	end
 })
 
@@ -78,7 +87,7 @@ local esptoggle = Tabs.Rivals:CreateToggle("ESPToggle", {
 	Title = "ESP",
 	Default = Settings.ScriptToggles.Rivals_Classic,
 	Callback = function(Value)
-		espOn = true
+		espOn = Value
 	end
 })
 
@@ -86,7 +95,7 @@ local friendcheck = Tabs.Rivals:CreateToggle("FriendCheck", {
 	Title = "Friend Check",
 	Default = Settings.ScriptToggles.Rivals_Classic,
 	Callback = function(Value)
-		ignoreFriends = false
+		ignoreFriends = Value
 	end
 })
 
@@ -313,6 +322,7 @@ for _,plr in pairs(Players:GetPlayers()) do
 end
 
 Players.PlayerAdded:Connect(onPlayer)
+
 
 
 
