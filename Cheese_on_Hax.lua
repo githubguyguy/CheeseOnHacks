@@ -78,10 +78,10 @@ local Tabs = {
 		Title = "Info",
 		Icon = "info"
 	}),
-	UniversalFPS = Window:CreateTab({
+	FPS = Window:CreateTab({
 		Title = "UniversalFPS"
 	}),
-	othershit = Window:CreateTab({
+	Other = Window:CreateTab({
 		Title = "othershit"
 	})
 }
@@ -101,12 +101,12 @@ for i, tabName in pairs(tabOrder) do
 end
 Window:SelectTab(selectedTabIndex)
 
-Tabs.UniversalFPS:CreateParagraph("Universal", {
+Tabs.FPS:CreateParagraph("Universal", {
 	Title = "Universal FPS",
 	Content = "Universal shit for most FPS games (rivals included)"
 })
 
-local aimbottoggle = Tabs.UniversalFPS:CreateToggle("AimbotToggle", {
+local aimbottoggle = Tabs.FPS:CreateToggle("AimbotToggle", {
 	Title = "Aimbot",
 	Default = false,
 	Callback = function(Value)
@@ -114,7 +114,7 @@ local aimbottoggle = Tabs.UniversalFPS:CreateToggle("AimbotToggle", {
 	end
 })
 
-local esptoggle = Tabs.UniversalFPS:CreateToggle("ESPToggle", {
+local esptoggle = Tabs.FPS:CreateToggle("ESPToggle", {
 	Title = "ESP",
 	Default = false,
 	Callback = function(Value)
@@ -122,7 +122,7 @@ local esptoggle = Tabs.UniversalFPS:CreateToggle("ESPToggle", {
 	end
 })
 
-local friendcheck = Tabs.UniversalFPS:CreateToggle("FriendCheck", {
+local friendcheck = Tabs.FPS:CreateToggle("FriendCheck", {
 	Title = "Friend Check",
 	Default = false,
 	Callback = function(Value)
@@ -135,7 +135,7 @@ Tabs.Info:CreateParagraph("Development Team", {
 	Content = "blah blah yes yes cheese on hacks"
 })
 
-Tabs.othershit:CreateButton({
+Tabs.Other:CreateButton({
 	Title = "Load Infinite Yield",
 	Description = "Load it loads infinite yield. what more could there be",
 	Callback = function()
@@ -358,6 +358,7 @@ for _,plr in pairs(Players:GetPlayers()) do
 end
 
 Players.PlayerAdded:Connect(onPlayer)
+
 
 
 
