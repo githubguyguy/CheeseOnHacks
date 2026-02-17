@@ -77,7 +77,7 @@ Tabs.Rivals:CreateParagraph("Universal", {
 
 local aimbottoggle = Tabs.Rivals:CreateToggle("AimbotToggle", {
 	Title = "Aimbot",
-	Default = Settings.ScriptToggles.Rivals_Classic,
+	Default = false,
 	Callback = function(Value)
 		aimbotEnabled = Value
 	end
@@ -85,7 +85,7 @@ local aimbottoggle = Tabs.Rivals:CreateToggle("AimbotToggle", {
 
 local esptoggle = Tabs.Rivals:CreateToggle("ESPToggle", {
 	Title = "ESP",
-	Default = Settings.ScriptToggles.Rivals_Classic,
+	Default = false,
 	Callback = function(Value)
 		espOn = Value
 	end
@@ -93,7 +93,7 @@ local esptoggle = Tabs.Rivals:CreateToggle("ESPToggle", {
 
 local friendcheck = Tabs.Rivals:CreateToggle("FriendCheck", {
 	Title = "Friend Check",
-	Default = Settings.ScriptToggles.Rivals_Classic,
+	Default = false,
 	Callback = function(Value)
 		ignoreFriends = Value
 	end
@@ -322,6 +322,7 @@ for _,plr in pairs(Players:GetPlayers()) do
 end
 
 Players.PlayerAdded:Connect(onPlayer)
+
 
 
 
