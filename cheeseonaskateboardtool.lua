@@ -15,7 +15,7 @@ local Window = Library:CreateWindow({
 	TabWidth = 160,
 	Size = UDim2.fromOffset(580, 460),
 	Acrylic = true,
-	Theme = Settings.ThemeColor or "Darker",
+	Theme = "Darker",
 	MinSize = Vector2.new(470, 380),
 	MinimizeKey = Enum.KeyCode.RightControl
 })
@@ -313,5 +313,6 @@ for _,plr in pairs(Players:GetPlayers()) do
 end
 
 Players.PlayerAdded:Connect(onPlayer)
+
 
 
