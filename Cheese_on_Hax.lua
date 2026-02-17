@@ -1,18 +1,8 @@
 local Players = game:GetService("Players")
 local UIS = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
-
 local localPlayer = Players.LocalPlayer
-while not localPlayer do
-	localPlayer = Players.LocalPlayer
-	task.wait(0.1)
-end
-
 local camera = workspace.CurrentCamera
-while not camera do
-	camera = workspace.CurrentCamera
-	task.wait(0.1)
-end
 
 --------------------------------------------------
 -- SETTINGS (DEFINED FIRST)
@@ -343,5 +333,6 @@ task.spawn(function()
 		end
 	})
 end)
+
 
 
