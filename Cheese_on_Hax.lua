@@ -78,19 +78,19 @@ local Tabs = {
 		Title = "Info",
 		Icon = "info"
 	}),
-	Rivals = Window:CreateTab({
+	UniversalFPS = Window:CreateTab({
 		Title = "UniversalFPS"
 	}),
-	Universal = Window:CreateTab({
+	othershit = Window:CreateTab({
 		Title = "othershit"
 	})
 }
 
-local selectedTabName = Settings.SelectedTab or "Aimbot"
+local selectedTabName = Settings.SelectedTab or "UniversalFPS"
 local selectedTabIndex = 1
 local tabOrder = {
-	"Universal FPS",
-	"other shit",
+	"UniversalFPS",
+	"othershit",
 	"Info"
 }
 for i, tabName in pairs(tabOrder) do
@@ -101,12 +101,12 @@ for i, tabName in pairs(tabOrder) do
 end
 Window:SelectTab(selectedTabIndex)
 
-Tabs.Rivals:CreateParagraph("Universal", {
+Tabs.UniversalFPS:CreateParagraph("Universal", {
 	Title = "Universal FPS",
 	Content = "Universal shit for most FPS games (rivals included)"
 })
 
-local aimbottoggle = Tabs.Rivals:CreateToggle("AimbotToggle", {
+local aimbottoggle = Tabs.UniversalFPS:CreateToggle("AimbotToggle", {
 	Title = "Aimbot",
 	Default = false,
 	Callback = function(Value)
@@ -114,7 +114,7 @@ local aimbottoggle = Tabs.Rivals:CreateToggle("AimbotToggle", {
 	end
 })
 
-local esptoggle = Tabs.Rivals:CreateToggle("ESPToggle", {
+local esptoggle = Tabs.UniversalFPS:CreateToggle("ESPToggle", {
 	Title = "ESP",
 	Default = false,
 	Callback = function(Value)
@@ -122,7 +122,7 @@ local esptoggle = Tabs.Rivals:CreateToggle("ESPToggle", {
 	end
 })
 
-local friendcheck = Tabs.Rivals:CreateToggle("FriendCheck", {
+local friendcheck = Tabs.UniversalFPS:CreateToggle("FriendCheck", {
 	Title = "Friend Check",
 	Default = false,
 	Callback = function(Value)
@@ -353,6 +353,7 @@ for _,plr in pairs(Players:GetPlayers()) do
 end
 
 Players.PlayerAdded:Connect(onPlayer)
+
 
 
 
