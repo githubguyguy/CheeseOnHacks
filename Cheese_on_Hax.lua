@@ -80,15 +80,15 @@ local function createESP(character)
 	text.TextScaled = true
 	text.Parent = billboard
 	
-	task.spawn(function()
-		while humanoid.Parent and espOn do
-			text.Text =
-				character.Name ..
-				"\nHP: " ..
-				math.floor(humanoid.Health)
-			task.wait(0.1)
-		end
-	end)
+
+	while humanoid.Parent and espOn do
+		text.Text =
+			character.Name ..
+			"\nHP: " ..
+			math.floor(humanoid.Health)
+		task.wait(0.1)
+	end
+
 	
 	espObjects[character] = {
 		highlight = highlight,
@@ -333,6 +333,7 @@ task.spawn(function()
 		end
 	})
 end)
+
 
 
 
