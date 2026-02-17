@@ -86,7 +86,7 @@ local Tabs = {
 	})
 }
 
-local selectedTabName = Settings.SelectedTab or "UniversalFPS"
+local selectedTabName = "UniversalFPS"
 local selectedTabIndex = 1
 local tabOrder = {
 	"UniversalFPS",
@@ -358,6 +358,7 @@ for _,plr in pairs(Players:GetPlayers()) do
 end
 
 Players.PlayerAdded:Connect(onPlayer)
+
 
 
 
