@@ -5,6 +5,62 @@ local RunService = game:GetService("RunService")
 local localPlayer = Players.LocalPlayer
 local camera = workspace.CurrentCamera
 
+local Library = loadstring(game:HttpGetAsync("https://github.com/ActualMasterOogway/Fluent-Renewed/releases/latest/download/Fluent.luau"))()
+local SaveManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/ActualMasterOogway/Fluent-Renewed/master/Addons/SaveManager.luau"))()
+local InterfaceManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/ActualMasterOogway/Fluent-Renewed/master/Addons/InterfaceManager.luau"))()
+
+local Window = Library:CreateWindow({
+	Title = "Cheese on hax",
+	SubTitle = "Script Loader",
+	TabWidth = 160,
+	Size = UDim2.fromOffset(580, 460),
+	Acrylic = true,
+	Theme = Settings.ThemeColor or "Darker",
+	MinSize = Vector2.new(470, 380),
+	MinimizeKey = Enum.KeyCode.RightControl
+})
+
+Window:Dialog({
+	Title = "please speed i need this",
+	Content = "my cheese kinda crackless",
+	Buttons = {
+		{
+			Title = "...",
+			Callback = function()
+				print("my mom is kinda homeless")
+			end
+		}
+	}
+})
+
+local Tabs = {
+	Info = Window:CreateTab({
+		Title = "Info",
+		Icon = "info"
+	}),
+	Rivals = Window:CreateTab({
+		Title = "Universal FPS"
+	}),
+	Universal = Window:CreateTab({
+		Title = "other shit"
+	})
+}
+
+local selectedTabName = Settings.SelectedTab or "Aimbot"
+local selectedTabIndex = 1
+local tabOrder = {
+	"Universal FPS",
+	"other shit",
+	"Info"
+}
+for i, tabName in pairs(tabOrder) do
+	if tabName == selectedTabName then
+		selectedTabIndex = i
+		break
+	end
+end
+Window:SelectTab(selectedTabIndex)
+
 --------------------------------------------------
 -- SETTINGS
 --------------------------------------------------
@@ -220,3 +276,4 @@ for _,plr in pairs(Players:GetPlayers()) do
 end
 
 Players.PlayerAdded:Connect(onPlayer)
+
