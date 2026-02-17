@@ -14,6 +14,37 @@ while not camera do
 	task.wait(0.1)
 end
 
+local DefaultSettings = {
+	AutoLoadEnabled = false,
+	TeleportLoadEnabled = false,
+	DisableScriptLoader = false,
+	SelectedVersion = nil,
+	SelectedTab = "Rivals",
+	ThemeColor = "Darker",
+	ScriptToggles = {
+		Rivals_Classic = false,
+		Rivals_Modern = false,
+		Rivals_SkinChanger = false,
+		Arsenal = false,
+		Universal = false,
+		BigPaintball2 = false,
+		AimbotFFA = false,
+		Bladeball = false,
+		GunGroundsFFA = false,
+		CombatWarriors = false,
+		Fisch = false,
+		MurderMystery2 = false,
+		FleeTheFacility = false,
+		Forsaken = false,
+		BlueLock_Rivals = false,
+		GrowAGarden = false,
+		Brookhaven = false,
+		MurderersVsSheriffsDuels = false,
+        NightsInTheForest = false,
+        Fling2Climb = false,
+	}
+}
+
 local Library = loadstring(game:HttpGetAsync("https://github.com/ActualMasterOogway/Fluent-Renewed/releases/latest/download/Fluent.luau"))()
 local SaveManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/ActualMasterOogway/Fluent-Renewed/master/Addons/SaveManager.luau"))()
 local InterfaceManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/ActualMasterOogway/Fluent-Renewed/master/Addons/InterfaceManager.luau"))()
@@ -322,6 +353,7 @@ for _,plr in pairs(Players:GetPlayers()) do
 end
 
 Players.PlayerAdded:Connect(onPlayer)
+
 
 
 
