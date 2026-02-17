@@ -14,6 +14,19 @@ while not camera do
 	task.wait(0.1)
 end
 
+--------------------------------------------------
+-- SETTINGS (DEFINED FIRST)
+--------------------------------------------------
+
+local espOn = false
+local aimbotEnabled = false
+local aiming = false
+local ignoreFriends = false
+local target = nil
+
+local espObjects = {}
+local SWAP_RADIUS = 500
+
 local DefaultSettings = {
 	AutoLoadEnabled = false,
 	TeleportLoadEnabled = false,
@@ -45,125 +58,12 @@ local DefaultSettings = {
 	}
 }
 
-local Library = loadstring(game:HttpGetAsync("https://github.com/ActualMasterOogway/Fluent-Renewed/releases/latest/download/Fluent.luau"))()
-local SaveManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/ActualMasterOogway/Fluent-Renewed/master/Addons/SaveManager.luau"))()
-local InterfaceManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/ActualMasterOogway/Fluent-Renewed/master/Addons/InterfaceManager.luau"))()
-
-local Window = Library:CreateWindow({
-	Title = "Cheese on hax",
-	SubTitle = "Script Loader",
-	TabWidth = 160,
-	Size = UDim2.fromOffset(580, 460),
-	Acrylic = true,
-	Theme = "Darker",
-	MinSize = Vector2.new(470, 380),
-	MinimizeKey = Enum.KeyCode.RightControl
-})
-
-
-
-local Tabs = {
-	Info = Window:CreateTab({
-		Title = "Info",
-		Icon = "info"
-	}),
-	FPS = Window:CreateTab({
-		Title = "UniversalFPS"
-	}),
-	Other = Window:CreateTab({
-		Title = "othershit"
-	})
-}
-
-Window:Dialog({
-	Title = "please speed i need this",
-	Content = "my cheese kinda crackless",
-	Buttons = {
-		{
-			Title = "...",
-			Callback = function()
-				print("my mom is kinda homeless")
-			end
-		}
-	}
-})
-
-local selectedTabName = "UniversalFPS"
-local selectedTabIndex = 1
-local tabOrder = {
-	"UniversalFPS",
-	"othershit",
-	"Info"
-}
-for i, tabName in pairs(tabOrder) do
-	if tabName == selectedTabName then
-		selectedTabIndex = i
-		break
-	end
-end
-Window:SelectTab(selectedTabIndex)
-
-Tabs.FPS:CreateParagraph("Universal", {
-	Title = "Universal FPS",
-	Content = "Universal shit for most FPS games (rivals included)"
-})
-
-local aimbottoggle = Tabs.FPS:CreateToggle("AimbotToggle", {
-	Title = "Aimbot",
-	Default = false,
-	Callback = function(Value)
-		aimbotEnabled = Value
-	end
-})
-
-local esptoggle = Tabs.FPS:CreateToggle("ESPToggle", {
-	Title = "ESP",
-	Default = false,
-	Callback = function(Value)
-		espOn = Value
-	end
-})
-
-local friendcheck = Tabs.FPS:CreateToggle("FriendCheck", {
-	Title = "Friend Check",
-	Default = false,
-	Callback = function(Value)
-		ignoreFriends = Value
-	end
-})
-
-Tabs.Info:CreateParagraph("Development Team", {
-	Title = "Script Information",
-	Content = "blah blah yes yes cheese on hacks"
-})
-
-Tabs.Other:CreateButton({
-	Title = "Load Infinite Yield",
-	Description = "Load it loads infinite yield. what more could there be",
-	Callback = function()
-		loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
-	end
-})
-
 --------------------------------------------------
--- SETTINGS
---------------------------------------------------
-
-local espOn = false
-local aimbotEnabled = false -- F2 toggle
-local aiming = false -- Right click hold
-local ignoreFriends = false
-local target = nil
-
-local espObjects = {}
-local SWAP_RADIUS = 500
-
---------------------------------------------------
--- ESP SYSTEM (UNCHANGED)
+-- ESP SYSTEM
 --------------------------------------------------
 
 local function createESP(character)
-	if espObjects[character] then return end
+	if not character or espObjects[character] then return end
 	
 	local humanoid = character:FindFirstChildOfClass("Humanoid")
 	local head = character:FindFirstChild("Head")
@@ -191,11 +91,13 @@ local function createESP(character)
 	text.Parent = billboard
 	
 	task.spawn(function()
-		while humanoid.Parent and espOn do
-			text.Text =
-				character.Name ..
-				"\nHP: " ..
-				math.floor(humanoid.Health)
+		while humanoid and humanoid.Parent and espOn do
+			if humanoid.Health > 0 then
+				text.Text =
+					character.Name ..
+					"\nHP: " ..
+					math.floor(humanoid.Health)
+			end
 			task.wait(0.1)
 		end
 	end)
@@ -223,7 +125,7 @@ local function isFriend(plr)
 end
 
 --------------------------------------------------
--- 🔧 FIXED TARGET FUNCTION
+-- TARGET FUNCTION
 --------------------------------------------------
 
 local function getClosestTarget()
@@ -252,15 +154,12 @@ local function getClosestTarget()
 				
 				if distance <= SWAP_RADIUS then
 					
-					-- Direction from camera to player
 					local direction =
 						(head.Position - camPos).Unit
 					
-					-- How close to crosshair aim
 					local angle =
-						math.acos(camLook:Dot(direction))
+						math.acos(math.min(1, camLook:Dot(direction)))
 					
-					-- Combine aim + distance
 					local score = angle + (distance / 1000)
 					
 					if score < bestScore then
@@ -305,7 +204,6 @@ UIS.InputBegan:Connect(function(input,gp)
 		ignoreFriends = not ignoreFriends
 	end
 	
-	-- 🔧 FIX: RMB start = force new target
 	if input.UserInputType == Enum.UserInputType.MouseButton2 then
 		aiming = true
 		target = nil
@@ -320,14 +218,12 @@ UIS.InputEnded:Connect(function(input,gp)
 end)
 
 --------------------------------------------------
--- 🔧 FIXED AIM LOOP
+-- AIMBOT LOOP
 --------------------------------------------------
 
 RunService.RenderStepped:Connect(function()
-	if not aimbotEnabled then return end
-	if not aiming then return end
+	if not aimbotEnabled or not aiming then return end
 	
-	-- Re-choose closest EVERY frame while holding RMB
 	target = getClosestTarget()
 	
 	if not target then return end
@@ -343,7 +239,7 @@ RunService.RenderStepped:Connect(function()
 end)
 
 --------------------------------------------------
--- RESPAWN ESP (UNCHANGED)
+-- RESPAWN ESP
 --------------------------------------------------
 
 local function onPlayer(plr)
@@ -361,13 +257,86 @@ end
 
 Players.PlayerAdded:Connect(onPlayer)
 
+--------------------------------------------------
+-- GUI (LOADED IN BACKGROUND)
+--------------------------------------------------
 
+task.spawn(function()
+	local Library = loadstring(game:HttpGetAsync("https://github.com/ActualMasterOogway/Fluent-Renewed/releases/latest/download/Fluent.luau"))()
+	local SaveManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/ActualMasterOogway/Fluent-Renewed/master/Addons/SaveManager.luau"))()
+	local InterfaceManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/ActualMasterOogway/Fluent-Renewed/master/Addons/InterfaceManager.luau"))()
 
+	local Window = Library:CreateWindow({
+		Title = "Cheese on hax",
+		SubTitle = "Script Loader",
+		TabWidth = 160,
+		Size = UDim2.fromOffset(580, 460),
+		Acrylic = true,
+		Theme = "Darker",
+		MinSize = Vector2.new(470, 380),
+		MinimizeKey = Enum.KeyCode.RightControl
+	})
 
+	local Tabs = {
+		Info = Window:CreateTab({
+			Title = "Info",
+			Icon = "info"
+		}),
+		UniversalFPS = Window:CreateTab({
+			Title = "UniversalFPS"
+		}),
+		othershit = Window:CreateTab({
+			Title = "othershit"
+		})
+	}
 
+	Window:Dialog({
+		Title = "please speed i need this",
+		Content = "my cheese kinda crackless",
+		Buttons = {
+			{
+				Title = "...",
+				Callback = function()
+					print("my mom is kinda homeless")
+				end
+			}
+		}
+	})
 
+	Tabs.UniversalFPS:CreateParagraph("Universal", {
+		Title = "Universal FPS",
+		Content = "Universal shit for most FPS games (rivals included)"
+	})
 
+	local aimbottoggle = Tabs.UniversalFPS:CreateToggle("AimbotToggle", {
+		Title = "Aimbot",
+		Default = false,
+		Callback = function(Value)
+			aimbotEnabled = Value
+		end
+	})
 
+	local esptoggle = Tabs.UniversalFPS:CreateToggle("ESPToggle", {
+		Title = "ESP",
+		Default = false,
+		Callback = function(Value)
+			espOn = Value
+		end
+	})
 
+	local friendcheck = Tabs.UniversalFPS:CreateToggle("FriendCheck", {
+		Title = "Friend Check",
+		Default = false,
+		Callback = function(Value)
+			ignoreFriends = Value
+		end
+	})
 
-
+	Tabs.othershit:CreateButton({
+		Title = "Load Infinite Yield",
+		Description = "Load it loads infinite yield. what more could there be",
+		Callback = function()
+			loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+		end
+	})
+end)
