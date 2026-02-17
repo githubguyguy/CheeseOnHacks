@@ -286,10 +286,12 @@ task.spawn(function()
 			Icon = "info"
 		}),
 		UniversalFPS = Window:CreateTab({
-			Title = "UniversalFPS"
+			Title = "UniversalFPS",
+			Icon = "target"
 		}),
 		othershit = Window:CreateTab({
-			Title = "othershit"
+			Title = "othershit",
+			Icon = "settings"
 		})
 	}
 
@@ -343,3 +345,4 @@ task.spawn(function()
 		end
 	})
 end)
+
