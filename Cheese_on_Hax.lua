@@ -19,7 +19,7 @@ local DefaultSettings = {
 	TeleportLoadEnabled = false,
 	DisableScriptLoader = false,
 	SelectedVersion = nil,
-	SelectedTab = "Rivals",
+	SelectedTab = "UniversalFPS",
 	ThemeColor = "Darker",
 	ScriptToggles = {
 		Rivals_Classic = false,
@@ -128,6 +128,11 @@ local friendcheck = Tabs.UniversalFPS:CreateToggle("FriendCheck", {
 	Callback = function(Value)
 		ignoreFriends = Value
 	end
+})
+
+Tabs.Info:CreateParagraph("Development Team", {
+	Title = "Script Information",
+	Content = "blah blah yes yes cheese on hacks"
 })
 
 Tabs.othershit:CreateButton({
@@ -353,6 +358,7 @@ for _,plr in pairs(Players:GetPlayers()) do
 end
 
 Players.PlayerAdded:Connect(onPlayer)
+
 
 
 
