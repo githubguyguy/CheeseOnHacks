@@ -243,9 +243,12 @@ end)
 --------------------------------------------------
 
 local function onPlayer(plr)
+	if plr == localPlayer then return end
+	
 	plr.CharacterAdded:Connect(function(char)
-		if espOn and plr ~= localPlayer then
-			task.wait(0.5)
+		task.wait(0.5)
+		if not char or not char.Parent then return end
+		if espOn then
 			createESP(char)
 		end
 	end)
