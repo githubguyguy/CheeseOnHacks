@@ -63,7 +63,7 @@ local DefaultSettings = {
 --------------------------------------------------
 
 local function createESP(character)
-	if not character or espObjects[character] then return end
+	if espObjects[character] then return end
 	
 	local humanoid = character:FindFirstChildOfClass("Humanoid")
 	local head = character:FindFirstChild("Head")
@@ -91,13 +91,11 @@ local function createESP(character)
 	text.Parent = billboard
 	
 	task.spawn(function()
-		while humanoid and humanoid.Parent and espOn do
-			if humanoid.Health > 0 then
-				text.Text =
-					character.Name ..
-					"\nHP: " ..
-					math.floor(humanoid.Health)
-			end
+		while humanoid.Parent and espOn do
+			text.Text =
+				character.Name ..
+				"\nHP: " ..
+				math.floor(humanoid.Health)
 			task.wait(0.1)
 		end
 	end)
@@ -345,4 +343,5 @@ task.spawn(function()
 		end
 	})
 end)
+
 
