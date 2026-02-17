@@ -314,6 +314,15 @@ task.spawn(function()
 		Default = false,
 		Callback = function(Value)
 			espOn = Value
+			if espOn then
+				for _,plr in pairs(Players:GetPlayers()) do
+					if plr ~= localPlayer and plr.Character then
+						createESP(plr.Character)
+					end
+				end
+			else
+				clearESP()
+			end
 		end
 	})
 
@@ -333,6 +342,7 @@ task.spawn(function()
 		end
 	})
 end)
+
 
 
 
