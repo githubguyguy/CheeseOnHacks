@@ -39,10 +39,10 @@ local Tabs = {
 		Icon = "info"
 	}),
 	Rivals = Window:CreateTab({
-		Title = "Universal FPS"
+		Title = "UniversalFPS"
 	}),
 	Universal = Window:CreateTab({
-		Title = "other shit"
+		Title = "othershit"
 	})
 }
 
@@ -60,6 +60,43 @@ for i, tabName in pairs(tabOrder) do
 	end
 end
 Window:SelectTab(selectedTabIndex)
+
+Tabs.Rivals:CreateParagraph("Universal", {
+	Title = "Universal FPS",
+	Content = "Universal shit for most FPS games (rivals included)"
+})
+
+local aimbottoggle = Tabs.Rivals:CreateToggle("AimbotToggle", {
+	Title = "Aimbot",
+	Default = Settings.ScriptToggles.Rivals_Classic,
+	Callback = function(Value)
+		aimbotEnabled = true
+	end
+})
+
+local esptoggle = Tabs.Rivals:CreateToggle("ESPToggle", {
+	Title = "ESP",
+	Default = Settings.ScriptToggles.Rivals_Classic,
+	Callback = function(Value)
+		espOn = true
+	end
+})
+
+local friendcheck = Tabs.Rivals:CreateToggle("FriendCheck", {
+	Title = "Friend Check",
+	Default = Settings.ScriptToggles.Rivals_Classic,
+	Callback = function(Value)
+		ignoreFriends = false
+	end
+})
+
+Tabs.othershit:CreateButton({
+	Title = "Load Infinite Yield",
+	Description = "Load it loads infinite yield. what more could there be",
+	Callback = function()
+		loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+	end
+})
 
 --------------------------------------------------
 -- SETTINGS
@@ -276,4 +313,5 @@ for _,plr in pairs(Players:GetPlayers()) do
 end
 
 Players.PlayerAdded:Connect(onPlayer)
+
 
