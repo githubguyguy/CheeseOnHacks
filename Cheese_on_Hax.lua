@@ -60,18 +60,7 @@ local Window = Library:CreateWindow({
 	MinimizeKey = Enum.KeyCode.RightControl
 })
 
-Window:Dialog({
-	Title = "please speed i need this",
-	Content = "my cheese kinda crackless",
-	Buttons = {
-		{
-			Title = "...",
-			Callback = function()
-				print("my mom is kinda homeless")
-			end
-		}
-	}
-})
+
 
 local Tabs = {
 	Info = Window:CreateTab({
@@ -85,6 +74,19 @@ local Tabs = {
 		Title = "othershit"
 	})
 }
+
+Window:Dialog({
+	Title = "please speed i need this",
+	Content = "my cheese kinda crackless",
+	Buttons = {
+		{
+			Title = "...",
+			Callback = function()
+				print("my mom is kinda homeless")
+			end
+		}
+	}
+})
 
 local selectedTabName = "UniversalFPS"
 local selectedTabIndex = 1
@@ -358,6 +360,7 @@ for _,plr in pairs(Players:GetPlayers()) do
 end
 
 Players.PlayerAdded:Connect(onPlayer)
+
 
 
 
